@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-NeMo Bridge Bot
+Claude Bridge Bot
 Bridges Discord messages to Claude Code via files
 
 Messages from Discord -> bridge/incoming.txt
@@ -81,7 +81,7 @@ def read_outgoing():
 @bot.event
 async def on_ready():
     print("=" * 50)
-    print("  NeMo Bridge Bot is online!")
+    print("  Claude Bridge Bot is online!")
     print("=" * 50)
     print(f"  Logged in as: {bot.user.name}")
     print(f"  Bridge directory: {BRIDGE_DIR}")
@@ -168,7 +168,7 @@ async def on_message(message):
 
 # Run the bot
 if __name__ == "__main__":
-    print("Starting NeMo Bridge Bot...")
+    print("Starting Claude Bridge Bot...")
     print(f"Watching: {OUTGOING_FILE}")
     print("Press Ctrl+C to stop")
     print()

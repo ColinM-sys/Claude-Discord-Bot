@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-NeMo Agent Discord Bot
+Claude Agent Discord Bot
 A full Discord bot powered by Claude AI
 
 Commands:
@@ -12,7 +12,7 @@ Commands:
     !pending            - (Owner only) See pending approval requests
     !request            - Request access to use the bot
 
-Run: python nemo_discord_bot.py
+Run: python claude_discord_bot.py
 """
 
 import discord
@@ -125,7 +125,7 @@ async def check_approval(ctx):
 async def on_ready():
     global OWNER_ID
     print(f"=" * 50)
-    print(f"  NeMo Agent Bot is online!")
+    print(f"  Claude Agent Bot is online!")
     print(f"=" * 50)
     print(f"  Logged in as: {bot.user.name}")
     print(f"  Bot ID: {bot.user.id}")
@@ -224,7 +224,7 @@ async def approve_command(ctx, member: discord.Member = None):
     try:
         notify_embed = discord.Embed(
             title="Access Granted!",
-            description="You've been approved to use NeMo Agent Bot!\n\nTry `!help` to see available commands.",
+            description="You've been approved to use Claude Agent Bot!\n\nTry `!help` to see available commands.",
             color=discord.Color.green()
         )
         await member.send(embed=notify_embed)
@@ -313,7 +313,7 @@ async def approved_command(ctx):
 async def help_command(ctx):
     """Show help message."""
     embed = discord.Embed(
-        title="NeMo Agent Bot - Help",
+        title="Claude Agent Bot - Help",
         description="AI-powered assistant using Claude",
         color=discord.Color.blue()
     )
@@ -346,7 +346,7 @@ async def help_command(ctx):
             inline=False
         )
 
-    embed.set_footer(text="Powered by Claude AI + NeMo Agent Toolkit")
+    embed.set_footer(text="Powered by Claude AI")
     await ctx.send(embed=embed)
 
 
@@ -421,7 +421,7 @@ async def private_command(ctx):
         # Send welcome message in thread
         embed = discord.Embed(
             title="Private Conversation",
-            description="This is your private thread with NeMo Agent.\n\n"
+            description="This is your private thread with Claude Agent.\n\n"
                        "Just type your messages here - no need for commands!\n"
                        "I'll respond to everything you say.",
             color=discord.Color.purple()
@@ -505,7 +505,7 @@ async def on_message(message):
 
 # Run the bot
 if __name__ == "__main__":
-    print("Starting NeMo Agent Discord Bot...")
+    print("Starting Claude Agent Discord Bot...")
     print("Press Ctrl+C to stop")
     print()
     bot.run(DISCORD_BOT_TOKEN)

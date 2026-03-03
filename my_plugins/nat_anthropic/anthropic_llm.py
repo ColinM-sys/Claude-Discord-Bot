@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: Copyright (c) 2025
 # SPDX-License-Identifier: Apache-2.0
 #
-# Custom Anthropic Claude LLM Provider for NeMo Agent Toolkit
+# Custom Anthropic Claude LLM Provider
 #
 # Usage:
 #   1. pip install anthropic

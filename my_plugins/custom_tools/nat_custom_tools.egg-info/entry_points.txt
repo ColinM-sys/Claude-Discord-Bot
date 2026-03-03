@@ -1,0 +1,4 @@
+[nat.function]
+discord_webhook = custom_tools.discord_tool:discord_webhook_tool
+http_submit = custom_tools.submit_tool:http_submit_tool
+shell_command = custom_tools.command_tool:shell_command_tool

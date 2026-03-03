@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "nat_custom_tools"
 version = "0.1.0"
-description = "Custom tools for NeMo Agent Toolkit - HTTP submit and shell commands"
+description = "Custom tools - HTTP submit, shell commands, and Discord webhook"
 requires-python = ">=3.11"
 dependencies = [
     "nvidia-nat>=1.3.0",

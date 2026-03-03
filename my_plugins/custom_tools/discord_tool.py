@@ -1,11 +1,11 @@
-# Discord Webhook Tool for NeMo Agent Toolkit
+# Discord Webhook Tool for Claude Agent
 #
 # Usage in YAML:
 #   functions:
 #     discord:
 #       _type: discord_webhook
 #       webhook_url: "https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN"
-#       bot_name: "NeMo Agent"
+#       bot_name: "Claude Agent"
 
 import httpx
 from pydantic import Field
@@ -23,7 +23,7 @@ class DiscordWebhookConfig(FunctionBaseConfig, name="discord_webhook"):
         description="Discord webhook URL (get from Server Settings > Integrations > Webhooks)"
     )
     bot_name: str = Field(
-        default="NeMo Agent",
+        default="Claude Agent",
         description="Name displayed for the bot in Discord"
     )
 

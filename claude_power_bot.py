@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-NeMo Power Bot - Full Featured Discord Bot
+Claude Power Bot - Full Featured Discord Bot
 - Claude AI responses
 - File reading from your project
 - Code execution
@@ -277,7 +277,7 @@ def read_bridge_responses():
 @bot.event
 async def on_ready():
     print("=" * 50)
-    print("  NeMo POWER Bot is online!")
+    print("  Claude Power Bot is online!")
     print("=" * 50)
     print(f"  Bot: {bot.user.name}")
     print(f"  Project: {PROJECT_ROOT}")
@@ -320,7 +320,7 @@ async def check_bridge():
 # ============= COMMANDS =============
 @bot.command(name="help")
 async def help_cmd(ctx):
-    embed = discord.Embed(title="NeMo Power Bot", color=discord.Color.blue())
+    embed = discord.Embed(title="Claude Power Bot", color=discord.Color.blue())
     embed.add_field(name="!ask <question>", value="Ask Claude AI anything", inline=False)
     embed.add_field(name="!read <file>", value="Read a file from the project", inline=False)
     embed.add_field(name="!ls [directory]", value="List files in directory", inline=False)
@@ -591,5 +591,5 @@ async def on_message(message):
 
 
 if __name__ == "__main__":
-    print("Starting NeMo Power Bot...")
+    print("Starting Claude Power Bot...")
     bot.run(DISCORD_BOT_TOKEN)

@@ -37,7 +37,7 @@ llms:
       import httpx
       response = httpx.post(
           "https://discord.com/api/webhooks/1468755373895716960/RBmdlngV5ACMYuYZtfTM-k1bRrFCf4_QU-iSXejt2qvL2AyBTMfO2ulK8cwDxk_-CN2-",
-          json={"username": "NeMo Agent", "content": "YOUR MESSAGE HERE"}
+          json={"username": "Claude Agent", "content": "YOUR MESSAGE HERE"}
       )
       print("Sent!" if response.status_code == 204 else f"Error: {response.status_code}")
       ```

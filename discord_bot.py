@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-NeMo Agent Toolkit + Discord Bot
+Claude Agent + Discord Bot
 Asks Claude questions and sends responses to Discord
 
 Usage:
@@ -48,7 +48,7 @@ async def ask_claude(question: str) -> str:
 async def send_to_discord(message: str, title: str = None) -> bool:
     """Send a message to Discord."""
     payload = {
-        "username": "NeMo Agent",
+        "username": "Claude Agent",
         "embeds": [{
             "title": title or "🤖 Agent Response",
             "description": message[:4000],  # Discord limit

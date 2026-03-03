@@ -1,4 +1,4 @@
-# Custom Anthropic/Claude LLM Provider for NeMo Agent Toolkit
+# Custom Anthropic/Claude LLM Provider
 #
 # To use: pip install anthropic
 # Set environment variable: ANTHROPIC_API_KEY=your_key
