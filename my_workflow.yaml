@@ -1,0 +1,46 @@
+# My Custom Workflow
+# Run with: nat run --config_file my_workflow.yaml --input "your question"
+# Or serve: nat serve --config_file my_workflow.yaml
+
+general:
+  use_uvloop: true
+
+# Define your tools/functions
+functions:
+  # Wikipedia search tool
+  wikipedia_search:
+    _type: wiki_search
+    max_results: 3
+
+  # Get current date/time
+  current_datetime:
+    _type: current_datetime
+
+  # Calculator tools
+  multiply:
+    _type: calculator_multiply
+  divide:
+    _type: calculator_divide
+  subtract:
+    _type: calculator_subtract
+
+# Define your LLM(s)
+llms:
+  my_llm:
+    _type: nim
+    model_name: meta/llama-3.1-70b-instruct  # or meta/llama-3.3-70b-instruct
+    temperature: 0.0
+    max_tokens: 1024
+
+# Define the workflow/agent
+workflow:
+  _type: react_agent  # Options: react_agent, tool_calling, rewoo
+  tool_names:
+    - wikipedia_search
+    - current_datetime
+    - multiply
+    - divide
+    - subtract
+  llm_name: my_llm
+  verbose: true
+  parse_agent_response_max_retries: 3

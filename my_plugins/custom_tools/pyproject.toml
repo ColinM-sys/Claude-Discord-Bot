@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nat_custom_tools"
+version = "0.1.0"
+description = "Custom tools for NeMo Agent Toolkit - HTTP submit and shell commands"
+requires-python = ">=3.11"
+dependencies = [
+    "nvidia-nat>=1.3.0",
+    "httpx>=0.25.0",
+]
+
+[project.entry-points."nat.function"]
+http_submit = "custom_tools.submit_tool:http_submit_tool"
+shell_command = "custom_tools.command_tool:shell_command_tool"
+discord_webhook = "custom_tools.discord_tool:discord_webhook_tool"
+
+[tool.setuptools.packages.find]
+where = ["."]

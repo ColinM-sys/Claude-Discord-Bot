@@ -1,0 +1,37 @@
+# Workflow using Claude via LiteLLM
+#
+# Setup:
+#   1. pip install litellm
+#   2. Set environment variable: ANTHROPIC_API_KEY=your_key
+#   3. nat run --config_file claude_workflow.yaml --input "Hello!"
+
+general:
+  use_uvloop: true
+
+functions:
+  calculator_multiply:
+    _type: calculator_multiply
+  calculator_divide:
+    _type: calculator_divide
+  calculator_subtract:
+    _type: calculator_subtract
+  current_datetime:
+    _type: current_datetime
+
+llms:
+  claude:
+    _type: litellm
+    model: claude-3-haiku-20240307
+    model_name: claude-3-haiku-20240307
+    temperature: 0.0
+    max_tokens: 4096
+
+workflow:
+  _type: tool_calling_agent
+  tool_names:
+    - calculator_multiply
+    - calculator_divide
+    - calculator_subtract
+    - current_datetime
+  llm_name: claude
+  verbose: true

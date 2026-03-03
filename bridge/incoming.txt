@@ -1,0 +1,16 @@
+{"timestamp": "2026-02-04T19:09:53.455315", "user": "Colin_", "channel_id": 1468759031861481625, "content": "what can i add to my nemo agent"}
+{"timestamp": "2026-02-04T19:13:26.514118", "user": "Colin_", "channel_id": 1468759031861481625, "content": "add a photo to this bots discord profile"}
+{"timestamp": "2026-02-04T19:14:09.598164", "user": "Colin_", "channel_id": 1468759031861481625, "content": "add a photo to the discord bots profile"}
+{"timestamp": "2026-02-04T19:17:14.382251", "user": "Colin_", "channel_id": 1468759031861481625, "content": "add a photo as this discord bots profile photo"}
+{"timestamp": "2026-02-04T19:40:51.312022", "user": "SYSTEM", "user_id": 0, "channel_id": 0, "content": "ACCESS REQUEST: Colinjetson (ID: 1468764782181093606) wants to DM the bot."}
+{"timestamp": "2026-02-04T19:44:34.309392", "user": "Colin_", "user_id": 658848309762457626, "channel_id": 1468759031861481625, "content": "allow messages frokm my friend \"colinjetson\""}
+{"timestamp": "2026-02-04T20:01:17.642928", "user": "Colin_", "user_id": 658848309762457626, "channel_id": 1468759031861481625, "content": "Are you connected to Claude code still or what"}
+{"timestamp": "2026-02-04T20:02:03.804982", "user": "Colin_", "user_id": 658848309762457626, "channel_id": 1468759031861481625, "content": "Open a new Claude code window in visual studio code"}
+{"timestamp": "2026-02-04T20:02:36.178065", "user": "Colin_", "user_id": 658848309762457626, "channel_id": 1468759031861481625, "content": "Which model are you running"}
+{"timestamp": "2026-02-04T20:05:16.732773", "user": "Colin_", "user_id": 658848309762457626, "channel_id": 1468759031861481625, "content": "Run"}
+{"timestamp": "2026-02-04T20:07:36.913788", "user": "Colin_", "user_id": 658848309762457626, "channel_id": 1468759031861481625, "content": "run"}
+{"timestamp": "2026-02-04T20:08:47.453398", "user": "Colin_", "user_id": 658848309762457626, "channel_id": 1468759031861481625, "content": "Open a new Claude code chat in visual studio code"}
+{"timestamp": "2026-02-04T20:09:52.316680", "user": "Colin_", "user_id": 658848309762457626, "channel_id": 1468759031861481625, "content": "Type into visual code studio chat: test and send the message"}
+{"timestamp": "2026-02-04T20:17:49.352116", "user": "Colin_", "user_id": 658848309762457626, "channel_id": 1468759031861481625, "content": "How much ram does my nvidia jetson have"}
+{"timestamp": "2026-02-04T20:20:28.445340", "user": "Colin_", "user_id": 658848309762457626, "channel_id": 1468759031861481625, "content": "The one you are directly connected to?  Or my brand"}
+{"timestamp": "2026-02-04T21:34:41.747866", "user": "Colinjetson", "user_id": 1468764782181093606, "channel_id": 1468768223972557004, "content": "fix my keyboard"}
