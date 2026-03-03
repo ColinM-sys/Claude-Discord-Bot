@@ -1,118 +1,145 @@
 # Claude Discord Bot
 
-AI-powered Discord bots with Claude integration, file bridging, conversation memory, and user approval system. Includes three bot variants and a bridge system for connecting Discord to Claude Code.
+A system of Discord bots powered by Claude AI. These bots work together to create a complete AI-powered Discord experience — from simple Q&A to remote code execution and bridging into Claude Code sessions. They use the Anthropic API and discord.py.
+
+## How They Work Together
+
+Each bot handles a different layer of the pipeline, and they combine to form a complete system:
+
+```
+Discord User
+    │
+    ├── !ask / !private / DMs ──► Agent Bot ──► Claude API ──► Response in Discord
+    │
+    ├── !read / !py / !cmd ─────► Power Bot ──► Local files, code execution
+    │                                  │
+    ├── !bridge / DMs ──────────► Bridge Bot ──► bridge/incoming.txt
+    │                                                 │
+    │                                            Claude Code (reads file)
+    │                                                 │
+    │                                            bridge/outgoing.txt
+    │                                                 │
+    │                            Bot picks up ◄───────┘
+    │                            response → Discord
+    │
+    ├── CLI one-shot ───────────► Webhook Bot ──► Discord channel (via webhook)
+    │
+    └── Workflow automation ────► Custom Tool ──► Discord channel (via webhook)
+```
+
+- **Agent Bot** handles user-facing interaction — questions, private threads, access control
+- **Power Bot** adds project-level tools — file access, code execution, conversation memory
+- **Bridge Bot / Power Bot bridge** connects Discord to a running Claude Code session through file-based IPC
+- **Webhook Bot + Interactive Chat** provide quick CLI-to-Discord posting for scripts and one-off questions
+
+For the full experience, run the **Power Bot** alongside **Claude Code** — users chat in Discord, simple questions get answered via the API, and complex tasks get bridged to Claude Code for full IDE-level processing.
 
 ## Bots
 
-### NeMo Discord Bot (`nemo_discord_bot.py`)
-The main bot — ask Claude questions directly from Discord with a user approval system.
+### Claude Agent Bot (`claude_discord_bot.py`)
+The main Discord bot. Runs as a persistent bot in your server.
 
 **Commands:**
 | Command | Description |
 |---------|-------------|
 | `!ask <question>` | Ask Claude AI a question |
 | `!private` | Create a private thread for conversation |
+| `!calc <expression>` | Quick math calculations |
 | `!request` | Request access to use the bot |
 | `!help` | Show available commands |
 | `!approve @user` | (Owner) Approve a user |
 | `!unapprove @user` | (Owner) Remove user approval |
 | `!pending` | (Owner) View pending access requests |
 
-### NeMo Power Bot (`nemo_power_bot.py`)
-Full-featured bot with Claude AI, file access, code execution, web search, conversation memory, and Claude Code bridging.
+---
 
-**Additional capabilities:**
-- Conversation memory (remembers last 20 messages per user)
-- Read files from your project directory
-- List project files
-- Execute code snippets
-- Bridge messages to/from Claude Code
-- User allowlist and access request system
+### Claude Power Bot (`claude_power_bot.py`)
+Full-featured bot with Claude AI, file access, code execution, conversation memory, and Claude Code bridging.
 
-### NeMo Bridge Bot (`nemo_bridge_bot.py`)
-Lightweight bot that bridges Discord messages to Claude Code via local files.
+**Additional commands:**
+| Command | Description |
+|---------|-------------|
+| `!read <file>` | Read files from the project directory |
+| `!ls [directory]` | List files |
+| `!py <code>` | Execute Python code (10s timeout) |
+| `!cmd <command>` | Run shell commands (limited to safe commands) |
+| `!bridge <message>` | Send a message to Claude Code |
+| `!clear` | Clear conversation memory |
 
-**How it works:**
+**Bridge System:**
+Messages sent via `!bridge` or DM are written to `bridge/incoming.txt`. Claude Code can read these and write responses to `bridge/outgoing.txt`, which the bot sends back to Discord.
+
+---
+
+### Claude Bridge Bot (`claude_bridge_bot.py`)
+Lightweight bot that only bridges Discord messages to Claude Code via files.
+
 ```
-Discord User  →  bridge/incoming.txt  →  Claude Code / Bridge Watcher
+Discord User  →  bridge/incoming.txt  →  Claude Code
                                               ↓
-Discord User  ←  bridge/outgoing.txt  ←  Claude Code / Bridge Watcher
+Discord User  ←  bridge/outgoing.txt  ←  Claude Code
 ```
 
-Messages are written to `bridge/incoming.txt` as JSON lines. Responses are read from `bridge/outgoing.txt` and sent back to Discord. This lets Claude Code respond to Discord messages without a direct API connection.
+---
 
 ### Bridge Watcher (`bridge_watcher.py`)
 Background process that monitors `bridge/incoming.txt` and auto-responds using the Claude API. Pairs with the Bridge Bot for autonomous Discord responses.
 
-## Workflows
+---
 
-Pre-configured YAML workflows for NeMo Agent Toolkit:
+### Simple Webhook Bot (`discord_bot.py`)
+One-shot script — ask Claude a question from the command line and post the answer to Discord via webhook.
 
-| File | Description |
-|------|-------------|
-| `discord_agent_workflow.yaml` | Discord-integrated agent workflow |
-| `action_agent_workflow.yaml` | Action-based agent workflow |
-| `claude_workflow.yaml` | Claude-specific workflow config |
-| `my_workflow.yaml` | Custom workflow template |
+**Run:** `python discord_bot.py "What is quantum computing?"`
 
-## Custom Plugins
+---
 
-| Plugin | Description |
-|--------|-------------|
-| `my_plugins/anthropic_provider/` | Anthropic API provider for NeMo |
-| `my_plugins/nat_anthropic/` | NeMo Agent Toolkit Anthropic LLM integration |
-| `my_plugins/custom_tools/` | Custom tools: command execution, Discord integration, submit tool |
+### Interactive Chat (`discord_chat.py`)
+CLI chat interface that also posts responses to Discord via webhook.
 
-## Installation
+**Run:** `python discord_chat.py`
+
+## Setup
 
 ### Prerequisites
+- Python 3.10+
+- `pip install discord.py httpx anthropic`
 
-- Python 3.8+
-- A [Discord Bot Token](https://discord.com/developers/applications)
-- An [Anthropic API Key](https://console.anthropic.com/)
+### Environment Variables
 
-### Setup
+| Variable | Used by | Description |
+|----------|---------|-------------|
+| `DISCORD_BOT_TOKEN` | Agent Bot, Power Bot, Bridge Bot | Bot token from [Discord Developer Portal](https://discord.com/developers/applications) |
+| `ANTHROPIC_API_KEY` | All bots | API key from [Anthropic Console](https://console.anthropic.com/) |
+| `DISCORD_WEBHOOK` | Webhook Bot, Interactive Chat | Webhook URL from Server Settings > Integrations > Webhooks |
 
 ```bash
-# Clone the repo
-git clone https://github.com/ColinM-sys/Claude-Discord-Bot.git
-cd Claude-Discord-Bot
-
-# Install dependencies
-pip install discord.py httpx anthropic
-
-# Set environment variables
-export DISCORD_BOT_TOKEN="your-discord-bot-token"
-export ANTHROPIC_API_KEY="your-anthropic-api-key"
+export DISCORD_BOT_TOKEN="your-bot-token"
+export ANTHROPIC_API_KEY="your-api-key"
+export DISCORD_WEBHOOK="https://discord.com/api/webhooks/..."
 ```
 
-### Creating a Discord Bot
-
-1. Go to the [Discord Developer Portal](https://discord.com/developers/applications)
-2. Click **New Application** and give it a name
-3. Go to **Bot** tab → click **Add Bot**
-4. Enable these Privileged Gateway Intents:
-   - **Message Content Intent**
-   - **Server Members Intent** (optional)
-5. Copy the bot token and set it as `DISCORD_BOT_TOKEN`
-6. Go to **OAuth2 → URL Generator**:
-   - Scopes: `bot`
-   - Permissions: `Send Messages`, `Read Messages`, `Create Public Threads`, `Send Messages in Threads`, `Read Message History`
-7. Open the generated URL to invite the bot to your server
+### Discord Bot Setup
+1. Go to [Discord Developer Portal](https://discord.com/developers/applications)
+2. Create a new application
+3. Go to Bot > create bot > copy token
+4. Enable **Message Content Intent** under Privileged Gateway Intents
+5. Go to OAuth2 > URL Generator > select `bot` scope > select permissions: Send Messages, Create Public Threads, Create Private Threads, Read Message History
+6. Use the generated URL to invite the bot to your server
 
 ### Running
 
 ```bash
 # Main bot (recommended starting point)
-python nemo_discord_bot.py
+python claude_discord_bot.py
 
 # Full-featured bot with file access, code exec, and memory
-python nemo_power_bot.py
+python claude_power_bot.py
 
 # Bridge bot (pair with bridge_watcher.py)
-python nemo_bridge_bot.py
+python claude_bridge_bot.py
 
-# Auto-responder for bridge (run alongside bridge bot)
+# Auto-responder for bridge
 python bridge_watcher.py
 ```
 
@@ -125,33 +152,36 @@ The bot restricts access by default. Only approved users can use commands:
 3. The owner approves with `!approve @user`
 4. Approved users are saved to `approved_users.json` (persists across restarts)
 
-The bot owner is automatically detected from the Discord application info.
-
 ## Project Structure
 
 ```
 Claude-Discord-Bot/
-├── nemo_discord_bot.py          # Main Claude AI bot
-├── nemo_power_bot.py            # Full-featured bot (AI + files + code + memory)
-├── nemo_bridge_bot.py           # File-based bridge bot
+├── claude_discord_bot.py        # Main Claude AI bot
+├── claude_power_bot.py          # Full-featured bot (AI + files + code + memory)
+├── claude_bridge_bot.py         # File-based bridge bot
 ├── bridge_watcher.py            # Auto-responder for bridge
-├── discord_bot.py               # Simple bot template
-├── discord_chat.py              # Chat utility
+├── discord_bot.py               # Simple webhook bot
+├── discord_chat.py              # Interactive CLI chat
+├── DISCORD_BOTS.md              # Detailed documentation
 ├── bridge/
 │   ├── incoming.txt             # Messages from Discord
 │   ├── outgoing.txt             # Responses to Discord
 │   ├── allowed_users.txt        # User allowlist
-│   ├── pending_requests.json    # Pending access requests
-│   └── seen.txt                 # Processed message tracking
+│   └── pending_requests.json    # Pending access requests
 ├── my_plugins/
 │   ├── anthropic_provider/      # Anthropic API provider
-│   ├── nat_anthropic/           # NeMo Anthropic LLM integration
+│   ├── nat_anthropic/           # Anthropic LLM integration
 │   └── custom_tools/            # Custom Discord/command tools
-├── action_agent_workflow.yaml   # Agent workflow config
-├── claude_workflow.yaml         # Claude workflow config
-├── discord_agent_workflow.yaml  # Discord agent workflow config
-└── my_workflow.yaml             # Custom workflow template
+└── *.yaml                       # Workflow configs
 ```
+
+## Use Cases
+
+- **Full AI Pipeline** — Power Bot + Claude Code for end-to-end: Discord chat → API answers + bridged code tasks → results back in Discord
+- **Personal AI Assistant** — Agent Bot with `!private` threads for topic-based conversations
+- **Team Q&A** — Agent Bot with approval system for controlled team access
+- **Remote Claude Code Control** — Bridge Bot lets you control your desktop from Discord on your phone
+- **Automated Notifications** — Webhook bot for scripts/workflows posting to Discord
 
 ## License
 
