@@ -25,14 +25,13 @@ Discord User
     │
     ├── CLI one-shot ───────────► Webhook Bot ───────► Discord channel (via webhook)
     │
-    └── Workflow automation ────► Custom Tool ────────► Discord channel (via webhook)
+    └── CLI chat ──────────────► Interactive Chat ───► Discord channel (via webhook)
 ```
 
 - **Agent Bot** handles user-facing interaction — questions, private threads, access control
 - **Power Bot** adds project-level tools — file access, code execution, conversation memory
 - **Bridge Bot / Power Bot bridge** connects Discord to a running Claude Code session through file-based IPC, letting you control your desktop from your phone
 - **Webhook Bot + Interactive Chat** provide quick CLI-to-Discord posting for scripts and one-off questions
-- **Custom Tool** plugs into NAT agent workflows so automated agents can post to Discord
 
 You can run them individually or combine them. For the full experience, run the **Power Bot** alongside **Claude Code** — users chat in Discord, the bot handles simple questions via the API, and complex tasks get bridged to Claude Code for full IDE-level processing.
 
@@ -109,20 +108,6 @@ CLI chat interface that also posts responses to Discord via webhook.
 
 **Run:** `python discord_chat.py`
 
----
-
-### Custom Discord Tool (`my_plugins/custom_tools/discord_tool.py`)
-A NAT workflow tool for sending messages to Discord from agent workflows.
-
-**Usage in workflow YAML:**
-```yaml
-functions:
-  discord:
-    _type: discord_webhook
-    webhook_url: "https://discord.com/api/webhooks/YOUR_ID/YOUR_TOKEN"
-    bot_name: "Claude Agent"
-```
-
 ## Setup
 
 ### Prerequisites
@@ -167,7 +152,7 @@ Set up the Agent Bot in a team server. Use the approval system to control who ca
 Run the Power Bot or Bridge Bot alongside Claude Code. Send commands from Discord on your phone, and Claude Code processes them on your desktop. Useful for monitoring long-running tasks or triggering actions remotely.
 
 **Automated Notifications**
-Use the webhook bot or custom tool in scripts/workflows to post results, alerts, or status updates to Discord channels. Chain this with the other bots so both humans and automated agents post to the same Discord channels.
+Use the webhook bot in scripts to post results, alerts, or status updates to Discord channels.
 
 **Quick Calculations**
 Use `!calc` for fast math without leaving Discord — great for quick conversions, percentages, or estimates during conversations.

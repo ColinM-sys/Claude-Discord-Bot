@@ -24,7 +24,7 @@ Discord User
     │
     ├── CLI one-shot ───────────► Webhook Bot ──► Discord channel (via webhook)
     │
-    └── Workflow automation ────► Custom Tool ──► Discord channel (via webhook)
+    └── CLI chat ──────────────► Interactive Chat ──► Discord channel (via webhook)
 ```
 
 - **Agent Bot** handles user-facing interaction — questions, private threads, access control
@@ -163,16 +163,11 @@ Claude-Discord-Bot/
 ├── discord_bot.py               # Simple webhook bot
 ├── discord_chat.py              # Interactive CLI chat
 ├── DISCORD_BOTS.md              # Detailed documentation
-├── bridge/
-│   ├── incoming.txt             # Messages from Discord
-│   ├── outgoing.txt             # Responses to Discord
-│   ├── allowed_users.txt        # User allowlist
-│   └── pending_requests.json    # Pending access requests
-├── my_plugins/
-│   ├── anthropic_provider/      # Anthropic API provider
-│   ├── nat_anthropic/           # Anthropic LLM integration
-│   └── custom_tools/            # Custom Discord/command tools
-└── *.yaml                       # Workflow configs
+└── bridge/
+    ├── incoming.txt             # Messages from Discord
+    ├── outgoing.txt             # Responses to Discord
+    ├── allowed_users.txt        # User allowlist
+    └── pending_requests.json    # Pending access requests
 ```
 
 ## Use Cases
