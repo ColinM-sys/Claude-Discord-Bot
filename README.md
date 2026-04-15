@@ -178,3 +178,10 @@ Claude-Discord-Bot/
 - **Remote Claude Code Control** — Bridge Bot lets you control your desktop from Discord on your phone
 - **Automated Notifications** — Webhook bot for scripts/workflows posting to Discord
 
+
+
+---
+
+## Author
+
+Built by **Colin McDonough** — [LinkedIn](https://www.linkedin.com/in/colinmcdonoughmarketing) · [GitHub](https://github.com/ColinM-sys)
